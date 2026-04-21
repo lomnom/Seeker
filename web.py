@@ -102,3 +102,9 @@ class WebInstance:
             result = None
 
         return result
+
+## To future me:
+# instance = WebInstance()
+# results = instance.search_engine("How do i pet a cat?", 3)
+# content = instance.page_text(results[0])
+# print(content)
