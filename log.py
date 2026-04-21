@@ -11,7 +11,7 @@ no_color = "\033[0m"
 START = time.perf_counter()
 
 DO_LOG = True
-def log(*args, **kwargs):
+def log(*args, color = '', **kwargs):
     """Logs messages with a timestamp since startup. Same syntax as print."""
     timestamp = time.perf_counter() - START
     timestamp = round(timestamp, 2)
@@ -19,4 +19,4 @@ def log(*args, **kwargs):
     timestamp = f"[{timestamp}]" 
     timestamp = "\033[2m" + timestamp + "\033[22m" # make dim.
 
-    print(timestamp, *args, **kwargs)
+    print(timestamp + color, *args, no_color, **kwargs)

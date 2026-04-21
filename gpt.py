@@ -9,7 +9,7 @@ from openai import OpenAI
 import json
 from typing import Callable
 from pathlib import Path
-from log import log
+from log import log, red
 
 # https://stackoverflow.com/questions/4060221/
 api_key_path = Path(__file__).with_name('api-key.txt')

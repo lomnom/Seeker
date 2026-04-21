@@ -7,7 +7,7 @@ This module defines a simple interface to control a browser instance that can:
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import atexit
-from log import log
+from log import log, red
 import time
 
 class WebInstance:
@@ -29,6 +29,8 @@ class WebInstance:
 
         log("Browser started.")
 
+        self.cache = {}
+
     ddg_url = "https://www.ddg.gg/search?q="
     def search_engine(self, query: str, result_n: int) -> list[str]:
         """
@@ -44,7 +46,7 @@ class WebInstance:
             try:
                 self.driver.get(self.ddg_url + query)
             except Exception as e:
-                log(repr(e) + f" encountered on search query {query}! Trying again in 30s")
+                log(repr(e) + f" encountered on search query {query}! Trying again in 30s", color = red)
                 time.sleep(30)
             else:
                 success = True
@@ -67,6 +69,10 @@ class WebInstance:
 
         Has an optimisation specific to MOE sites.
         """
+        if url in self.cache:
+            log(f"Page {url} already in cache. Returning.")
+            return self.cache[url]
+
         log(f"Reading page {url}.")
         try:
             # Open search result
@@ -96,11 +102,12 @@ class WebInstance:
             
             result = page.text
         except Exception as e:
-            log(repr(e) + f" encountered on page {self.driver.current_url}! Ignoring page.")
+            log(repr(e) + f" encountered on page {self.driver.current_url}! Ignoring page.", color = red)
             # Usually some fast-evolving page that isnt the correct one anyway 
             # causing stale element errors
             result = None
 
+        self.cache[url] = result
         return result
 
 ## To future me:
