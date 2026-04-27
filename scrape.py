@@ -7,70 +7,7 @@ In folder, there must be:
 - algo.yaml
 - subjects.txt
 
-algo.yaml defines the scraping that should be done.
-Something like
-- prompt: '
-    From the website pasted below, please extract the color of an {s}.
-    Output nothing except one line, containing ONLY
-        color
-    If not successful, output ONLY
-        unsuccessful
-  '
-  results:
-  - color
-  search-queries:
-  - Color of a {s}
-  site-blacklist:
-  - reddit
-  top_n_results: 3
-- {}
-
-subjects.txt is a list of subjects that scraping is to be done on.
-Eg, if you are scraping the colors of fruits,
-Apple
-Orange
-Pomelo
-Apricot
-
-The program creates result.csv, in this case:
-subject | color
-Apple | Red
-Orange | Orange
-Pomelo | Pink
-Apricot | Orange
-
-Workflow:
-1. You have a list of subjects you want to collect the same type of info on.
-  - Eg. fruits and their color.
-2. For each subject, the bot:
-  1. Uses a search engine to search various search queries
-    - Color of a {fruit}
-  2. Reads the top few results and passes the contents of each site into an llm one by one.
-  3. For each site, the llm is asked your prompt, where the webpage is treated as being pasted below.
-  3. The AI must be instructed to reply with only one line, either
-     unsuccessful
-     color
-3. The results are put into result.csv
-
-Full algo.yaml specification:
-
-An algo.yaml notates a list of one or more components to extract.
-A component is as follows
-- prompt (str): Prompt to be passed to gpt.
-  results (list): 
-  - A list of results the LLM gives back. If llm outputs teacher_name | teacher_role, it is
-  - teacher_name
-  - teacher_role
-  search-queries (list): 
-  - A list of search queries to try in order
-  site-blacklist (list): 
-  - sites that are ignored in search results
-  top_n_results (int): The top how many results to try
-  try_last (bool, optional): If we want to try using the site that was successful for the previous 
-            component for this subject.
-
-In the project folder, result.csv is created. The rows are:
-subject | component 1 result columns | src_1 | component 2 result columns ...
+Usage details in readme.md
 """
 
 import sys
@@ -87,7 +24,7 @@ def scrape_subject(subject: str, algo: list, web: WebInstance, machines: list[Ca
     Returns a result dictionary, like a row in result.csv.
     """
     answer = {"subject": subject}
-    log(f"Working on subject {subject}...")
+    log(f"=================> Working on subject {subject}...")
 
     for i, step in enumerate(algo):
         step_result = None
@@ -97,7 +34,6 @@ def scrape_subject(subject: str, algo: list, web: WebInstance, machines: list[Ca
         for query in step["search-queries"]:
             # Actual search
             query = query.replace("{s}", subject)
-            log(f"Searching {query} on duckduckgo...")
             results = web.search_engine(query, step["top_n_results"])
 
             # Insert last success if try_last and exists
@@ -146,6 +82,7 @@ def scrape_subject(subject: str, algo: list, web: WebInstance, machines: list[Ca
         
         answer = {**answer, **step_result}
     
+    log(f"--> Results: {answer}")
     return answer
 
 def fieldnames_from_algo(algo: list) -> list[str]:

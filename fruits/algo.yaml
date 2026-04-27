@@ -1,0 +1,13 @@
+- search-queries:
+  - Color of the {s} fruit
+  site-blacklist:
+  - reddit
+  top_n_results: 3
+  prompt: '
+    From the website pasted below, please extract the color of an {s}.
+    Output nothing except one line, containing ONLY
+        color
+    If not successful, output ONLY
+        unsuccessful'
+  results:
+  - color

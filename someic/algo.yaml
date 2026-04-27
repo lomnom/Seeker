@@ -1,0 +1,71 @@
+- prompt: '
+    From the webpage pasted below, extract the email of the Mathematics (Math) Head of Department (HOD)
+    in {s}. 
+    If there is no explicit Mathematics HOD, choose the closest role in this order:
+    1. Subject Head (SH) Mathematics
+    2. Lead Teacher Mathematics
+    3. Head Teacher Mathematics
+    4. Senior Teacher Mathematics
+    5. Explicitly exclude non-teaching roles. DO NOT include any teacher not related to Mathematics, 
+       eg. Science, Special Project, Computing
+
+    Output nothing except one line, containing ONLY
+        email | role name
+    If not successful (eg. no contact emails for specifically {s}, or the page contains no close matches), output ONLY
+        unsuccessful
+    
+    Prefer to format role_name as designation, department where possible, eg. 
+    "Head of Department, Math" or "Subject Head, Math".'
+  results:
+  - math_email
+  - math_role
+  search-queries:
+  - email address Mathematics head of department HOD {s}
+  - email address Math head of department HOD {s}
+  - email address "Mathematics" head of department HOD {s}
+  site-blacklist:
+  - zoominfo
+  - contactout
+  - datanyse
+  - linkedin
+  top_n_results: 3
+
+- prompt: '
+    From the webpage pasted below, extract the email of one individual.
+    
+    You are tasked to find the email of the {s} Head of Department (HOD) in:
+    - Information and Communications Technology (Infocomm/ICT) 
+    - OR Computing
+    
+    If neither of the above are present, provide the HOD of Educational Technology.
+    
+    If there is no explicit head-of-department, choose the closest role in this order:
+    1. Subject Head (SH) 
+    2. Lead Teacher 
+    3. Head Teacher 
+    4. Senior Teacher 
+    5. Other teachers with similar Computing/ICT-related job scopes you are able to infer. 
+       Explicitly exclude non-teaching roles. DO NOT include any teacher not related to ICT or computing, 
+       eg. Science, Math, Special Project.
+
+    Output nothing except one line, containing ONLY
+        email | role name
+    If not successful (eg. no contact emails for specifically {s}, or the page contains no close matches), output ONLY
+        unsuccessful
+
+    Prefer to format role_name as designation, department where possible, eg. 
+    "Head of Department, ICT" or "Subject Head, Computing".'
+  results:
+  - comp_email
+  - comp_role
+  search-queries:
+  - email address Information and Communications Technology HOD {s}
+  - email address ICT head of department HOD {s}
+  - email address InfoComm Technology head of department HOD {s}
+  site-blacklist:
+  - zoominfo
+  - contactout
+  - datanyse
+  - linkedin
+  top_n_results: 3
+  try_last: true
