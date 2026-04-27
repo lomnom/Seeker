@@ -1,5 +1,5 @@
 # Scrape
-This tool allows automation of the conventional web scraping workflow. If a human was to do it, they would:
+This tool allows automation of the conventional web scraping workflow. If a human were to do it, they would:
 -  Need some piece of information to be collected from a list of targets. 
   - eg. The color of each fruit in a list of fruits
 - For each target, do these tedious steps:
@@ -32,7 +32,7 @@ A seeker project is a folder which contains:
 Upon running `python3 scrape.py path/to/project_folder`, a `result.csv` file is produced to store results that the bot finds. Each row corresponds to the result for a subject. If a `result.csv` already exists and there is already data inside, the subjects for which data has already been collected will not be scraped for again.
 
 ### Simple example: Fruits
-The `fruits` folder in this repository is an example of a seeker project. As expected, it contains the user-created `algo.yaml` and `subjects.txt`. Seeker has been run on this before with `python3 seeker.py fruits`, and the corresponding `result.csv` has been produced.
+The `fruits` folder in this repository is an example of a seeker project. As expected, it contains the user-created `algo.yaml` and `subjects.txt`. Seeker has been run on this before with `python3 scrape.py fruits`, and the corresponding `result.csv` has been produced.
 
 The purpose of this seeker project is to scrape the color of a list of fruits. Here, the subjects are fruits: the fruits to scrape for are listed in `subjects.txt`:
 ```txt
@@ -88,7 +88,7 @@ Apple     | red      | apples.com
 ```
 If the bot was unsuccessful, an empty row would be added,
 
-With this `algo.yaml` and `subjects.txt` in the `fruits` project folder, Snowy can run `python3 scraper.py fruits` to get the colors of all his fruits.
+With this `algo.yaml` and `subjects.txt` in the `fruits` project folder, Snowy can run `python3 scrape.py fruits` to get the colors of all his fruits.
 
 ### Full example: SomeIC
 In a certain SomeIC event, the Math HOD and ICT HOD emails of a list of singaporean schools had to be obtained. 
