@@ -3,10 +3,10 @@ This tool allows automation of the conventional web scraping workflow. If a huma
 -  Need some piece of information to be collected from a list of targets. 
   - eg. The color of each fruit in a list of fruits
 - For each target, do these tedious steps:
-    1. Use a search engine (like google) to enter some repetive prompt.
-      - Eg. Color of {fruit}
-    2. Read through the first few search results.
-    3. If an answer is found, note it down somewhere.
+  - Use a search engine (like google) to enter some repetive prompt.
+    - Eg. Color of {fruit}
+  - Read through the first few search results.
+  - If an answer is found, note it down somewhere.
 
 This tool allows you to pass in a list of subjects, search queries and llm instructions to automate the scraping process cheaply.
 
