@@ -145,17 +145,17 @@ A simplified version of the `algo.yaml` used is shown below:
 
 This `algo.yaml` takes full advantage of the features in seeker. Let us go through several things.
 
-1: It looks like there are two `algo.yaml`s typed one after the other. Each such block is referred to as a `component`. When multiple `component`s are chained together, it means that for each subject the components will execute one by one. In this case, for each school, the Math HOD will be found followed by the ICT HOD.
+**1:** It looks like there are two `algo.yaml`s typed one after the other. Each such block is referred to as a `component`. When multiple `component`s are chained together, it means that for each subject the components will execute one by one. In this case, for each school, the Math HOD will be found followed by the ICT HOD.
 
-2: There are multiple search prompts listed! The bot will try them one-by-one, starting from the first, reading the top n results for each search till an answer is found. In this case for the math component, the bot will try reading the top 3 results to `email address Mathematics head of department HOD {s}`, and if an answer has not been found yet, try reading the top 3 results for `email address Math head of department HOD {s}`.
+**2:** There are multiple search prompts listed! The bot will try them one-by-one, starting from the first, reading the top n results for each search till an answer is found. In this case for the math component, the bot will try reading the top 3 results to `email address Mathematics head of department HOD {s}`, and if an answer has not been found yet, try reading the top 3 results for `email address Math head of department HOD {s}`.
 
-3: There are multiple `site-blacklists`. Intuitively, this means that a site containing ANY of the blacklisted strings will be skipped.
+**3:** There are multiple `site-blacklists`. Intuitively, this means that a site containing ANY of the blacklisted strings will be skipped.
 
-4: The `try_last` flag is not required and can be excluded. If it is included and set to `true`, it means that for this component, try finding an answer from the page which an answer was found from for the previous component. In case, let's say that the math HOD for balls school was found at `schoolballs.com/staff`. Since `try_last` is true for the ICT component, the first link that the ICT component will try to find an answer from will be `schoolballs.com/staff`. This is quite useful in this case as schools often have all staff emails on the same page. This flag will not work in the first component for obvious reasons. 
+**4:** The `try_last` flag is not required and can be excluded. If it is included and set to `true`, it means that for this component, try finding an answer from the page which an answer was found from for the previous component. In case, let's say that the math HOD for balls school was found at `schoolballs.com/staff`. Since `try_last` is true for the ICT component, the first link that the ICT component will try to find an answer from will be `schoolballs.com/staff`. This is quite useful in this case as schools often have all staff emails on the same page. This flag will not work in the first component for obvious reasons. 
 
-5: To get the AI to return multiple pieces of information, the response must be formatted as `info_1 | info_2 | info_3 | ...`. These corresponding return values are listed in order in the results section (left-to-right in the prompt response --> top to bottom in the results list).
+**5:** To get the AI to return multiple pieces of information, the response must be formatted as `info_1 | info_2 | info_3 | ...`. These corresponding return values are listed in order in the results section (left-to-right in the prompt response --> top to bottom in the results list).
 
-6: So what is the output fieldname format? The general pattern is:
+**6:** So what is the output fieldname format? The general pattern is:
 ```
 subject | component 1 result columns | src_1 | component 2 result columns ...
 ```
